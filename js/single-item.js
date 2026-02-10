@@ -10,10 +10,14 @@ function createSingleItem(item) {
     <button class="btn icon-btn edit-btn" type="button">
       <i class="fa-regular fa-pen-to-square"></i>
     </button>
-    <button class="btn icon-btn remove-btn" type="button">
+  <button class="btn icon-btn remove-btn" type="button" onclick="removeItem('${item.id}');">
       <i class="fa-regular fa-trash-can"></i>
-    </button>
-  `);
+</button>`;
+
+    // Add event listener for remove button
+  $div.find(".remove-btn").on("click", function () {
+    removeItem(item.id);
+  });
 
   return $div;
 }
