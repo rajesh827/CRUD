@@ -22,5 +22,9 @@ function createSingleItem(item) {
     setEditId(item.id);
   });
 
+  $div.find("input[type='checkbox']").on("change", function () {
+    editCompleted(item.id);
+  });
+
   return $div;
 }
