@@ -1,4 +1,3 @@
-// Create SingleItem Element
 function createSingleItem(item) {
   var $div = $('<div class="single-item"></div>');
 
@@ -10,11 +9,15 @@ function createSingleItem(item) {
     <button class="btn icon-btn edit-btn" type="button">
       <i class="fa-regular fa-pen-to-square"></i>
     </button>
-  <button class="btn icon-btn remove-btn" type="button" onclick="removeItem('${item.id}');">
+    <button class="btn icon-btn remove-btn" type="button">
       <i class="fa-regular fa-trash-can"></i>
-</button>`;
+    </button>
+  `);
 
-    // Add event listener for remove button
+  $div.find('input[type="checkbox"]').on("change", function () {
+    editCompleted(item.id);
+  });
+
   $div.find(".remove-btn").on("click", function () {
     removeItem(item.id);
   });
