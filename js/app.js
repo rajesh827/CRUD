@@ -1,12 +1,19 @@
 var items = groceryItems;
+var editId = null;
 
-// Render App
 function render() {
   var $app = $("#app");
   $app.empty();
 
-  var $formElement = createForm();
+  var itemToEdit = editId
+    ? $.grep(items, function (item) {
+        return item.id === editId;
+      })[0]
+    : null;
+
+  var $formElement = createForm(editId, itemToEdit);
   var $itemsElement = createItems(items);
+
   $app.append($formElement);
   $app.append($itemsElement);
 }
@@ -38,7 +45,6 @@ function removeItem(itemId) {
   }, 0);
 }
 
-// Edit Completed Function
 function editCompleted(itemId) {
   items = $.map(items, function (item) {
     if (item.id === itemId) {
@@ -49,7 +55,29 @@ function editCompleted(itemId) {
   render();
 }
 
-// Initialize App
+function updateItemName(newName) {
+  items = $.map(items, function (item) {
+    if (item.id === editId) {
+      return $.extend({}, item, { name: newName });
+    }
+    return item;
+  });
+  editId = null;
+  render();
+  setTimeout(function () {
+    alert("Item Updated Successfully!");
+  }, 0);
+}
+
+function setEditId(itemId) {
+  editId = itemId;
+  render();
+
+  setTimeout(function () {
+    $(".form-input").focus();
+  }, 0);
+}
+
 $(document).ready(function () {
   render();
 });
